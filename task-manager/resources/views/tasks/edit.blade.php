@@ -4,9 +4,9 @@
 
 @section('content')
     <h1>EDIT TASK DETAILS</h1>
-    <form action="{{ route('tasks.store') }}" method="POST">
+    <form action="{{ route('tasks.update', ['id' => $task->id ]) }}" method="POST">
         @csrf 
-        @method('PUT')
+        @method('PUT') 
         <div>
             <label for="title">Title</label>
             <input type="text" value="{{ $task->title }}" name="title" id="title">
