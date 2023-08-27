@@ -20,7 +20,13 @@
                     <td>
                         <a href="{{ route('articles.show', ['article' => $article->id]) }}">View</a>
                         <a href="{{ route('articles.edit', ['article' => $article->id]) }}">Edit</a>
-                        <a href="">Delete</a> 
+                        <a href="#">
+                            <form action="{{ route('articles.destroy', ['article' => $article->id]) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit">Delete</button>
+                            </form>
+                        </a> 
                     </td>
                 </tr> 
                 @endforeach

@@ -2,10 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ActionController;
-use App\Http\Controllers\YetController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,31 +19,19 @@ use App\Http\Controllers\ArticleController;
 |
 */
 
-// Route::view('/', 'home.index')->name('home.index'); 
-
-// Route::prefix('/orders')->name('orders.')->group(function () {
-
-//     Route::get('/', function () {
-//         return 'All orders';
-//     })->name('all'); 
-    
-//     Route::get('/pending', function () {
-//         return 'pending orders';
-//     })->name('pending');
-
-// });
-
 Route::get('/', function () {
-    return redirect()->route('articles.index'); 
+    return redirect()->route('posts.index'); 
 });
 
-Route::get('/single', YetController::class)->name('single');
-
-Route::prefix('/home')->name('home.')->group(function () {
-    
-    Route::get('/', [HomeController::class, 'index'])->name('index'); 
-    Route::get('/about', [HomeController::class, 'about'])->name('about');
-    Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
+Route::get('/home', function () {
+    return redirect()->route('articles.index');
 });
 
 Route::resource('articles', ArticleController::class);
+Auth::routes();
+
+Route::resource('users', UserController::class)->only('index', 'show'); 
+Route::resource('users.profile', ProfileController::class)->only('create', 'store', 'update');
+
+Route::resource('categories', CategoryController::class); 
+Route::resource('posts', PostController::class);
